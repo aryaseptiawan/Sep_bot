@@ -30,6 +30,22 @@ api_hash = '5499501717:AAGHvy9kFlvTjn_BY1wHfssQBfqhk0_12ok'
 client = TelegramClient('Arya', api_id, api_hash)
 phone_number = '+6281231392790'
 
-
+# @client.on(events.NewMessage(incoming=True, chats=522050610))
+@client.on(events.NewMessage( chats=522050610))
+async def ipnya(event):
+    Username = "29071996"
+    Password = "Audi7199"
+    chrome_options = Options()
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    # chrome_options.add_argument('--disable-gpu')
+    PATH = Service("C:\Intel\chromedriver.exe")
+    driver = webdriver.Chrome(service=PATH, options=chrome_options)
+    hasil = event.raw_text.lower()
+    name = event.chat_id
+    real_id, peer_type = utils.resolve_id(name)
+    peername = peer_type(real_id)
+    
 client.start()
 client.run_until_disconnected()
