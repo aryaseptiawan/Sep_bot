@@ -46,6 +46,74 @@ async def ipnya(event):
     name = event.chat_id
     real_id, peer_type = utils.resolve_id(name)
     peername = peer_type(real_id)
-    
+    if 'moban' in hasil:
+        typing = await client(functions.messages.SetTypingRequest(
+            peer=peername,
+            action=types.SendMessageTypingAction()
+        ))
+        try:
+            if "172." in hasil:
+                await event.reply(message='wait ya', attributes=typing)
+                kentang = event.raw_text.split('172.')[1].split("\n")[0]
+                if ')' in kentang:
+                    kentang = kentang.split(')')[0]
+                kentang = ('172.'+kentang)
+            kentang = kentang.strip()
+        except (IndexError, UnboundLocalError):
+            await event.reply(message='IP kosong nih', attributes=typing)
+            return
+        try:
+            if '_internet' in hasil:
+                try:
+                    inet = hasil.split('_internet')[0].split('\n')[2]
+                    noinet = (inet + '_INTERNET')
+                except IndexError:
+                    try:
+                        inet = hasil.split('_internet')[0].split('\n')[1]
+                        noinet = (inet + '_INTERNET')
+                    except IndexError:
+                        try:
+                            inet = hasil.split('_internet')[0]
+                            noinet = (inet + '_INTERNET')
+                        except IndexError:
+                            pass
+            if '_voice' in hasil:
+                try:
+                    voice = hasil.split('_voice')[0].split('\n')[2]
+                    novoice = (voice + '_VOICE')
+
+                except IndexError:
+                    try:
+                        voice = hasil.split('_voice')[0].split('\n')[1]
+                        novoice = (voice + '_VOICE')
+
+                    except IndexError:
+                        try:
+                            voice = hasil.split('_voice')[0]
+                            novoice = (voice + '_VOICE')
+                        except IndexError:
+                            pass
+            if '_iptv' in hasil:
+                try:
+                    iptv = hasil.split('_iptv')[0].split('\n')[3]
+                    noiptv = (iptv + '_IPTV')
+                except IndexError:
+                    try:
+                        iptv = hasil.split('_iptv')[0].split('\n')[2]
+                        noiptv = (iptv + '_IPTV')
+
+                    except IndexError:
+                        try:
+                            iptv = hasil.split('_iptv')[0].split('\n')[1]
+                            noiptv = (iptv + '_IPTV')
+
+                        except IndexError:
+                            try:
+                                iptv = hasil.split('_iptv')[0]
+                                noiptv = (iptv + '_IPTV')
+
+                            except IndexError:
+                                pass
+                            
 client.start()
 client.run_until_disconnected()
