@@ -238,6 +238,175 @@ async def ipnya(event):
             await event.reply(message='uimnya lemot ni', attributes=typing)
             driver.quit()
             return
-        
+         WebDriverWait(driver, 25).until(
+            EC.element_to_be_clickable((By.XPATH, "(//div[@id='pt1:MA:0:n1:2:pt1:pc21:_vw'])[1]"))).click()
+        WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:_clmns"))).click()
+        WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:_shwMr"))).click()
+
+        WebDriverWait(driver, 15).until(
+            EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:_shwClmDS::removeall"))).click()
+        await asyncio.sleep(1)
+        driver.find_element_by_id("pt1:MA:0:n1:2:pt1:pc21:showColsDlg::ok").click()
+        await asyncio.sleep(1)
+        try:
+            zte = WebDriverWait(driver,20).until(EC.presence_of_element_located((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0:cl22"))).text
+
+            target_id = driver.find_element_by_id("pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0:cl22").text.split(" ")[6].split(" ")[0]
+            expand = WebDriverWait(driver, 20).until((EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0::di"))))
+            webdriver.ActionChains(driver).move_to_element(expand).click(expand).perform()
+            await asyncio.sleep(1)
+            expand1 = WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:1::di")))
+            webdriver.ActionChains(driver).move_to_element(expand1).click(expand1).perform()
+            expand2 = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:2::di")))
+            webdriver.ActionChains(driver).move_to_element(expand2).click(expand2).perform()
+            if "1/1/" in hasil:
+                try:
+                    noport = event.raw_text.split("1/1/")[1].split("/")[0]
+                    if " " in noport:
+                        raise IndexError
+                    lastport = event.raw_text.split('1/1/' + str(noport) + '/')[1].split(" ")[0]
+                    if ':' in lastport:
+                        lastport = lastport.split(":")[0]
+                    if '\n' in lastport:
+                        lastport = lastport.split('\n')[0]
+                except IndexError:
+                    noport = ('1')
+                    lastport = event.raw_text.split('1/')[2].split(' ')[0]
+                    if ':' in lastport:
+                        lastport = lastport.split(":")[0]
+                    if '\n' in lastport:
+                        lastport = lastport.split('\n')[0]
+            else:
+                try:
+                    noport = event.raw_text.split("1/")[1].split("/")[0]
+                    lastport = event.raw_text.split('1/' + str(noport) + '/')[1].split(' ')[0]
+                    if ':' in lastport:
+                        lastport = lastport.split(":")[0]
+                    if '\n' in lastport:
+                        lastport = lastport.split('\n')[0]
+                except IndexError:
+                    try:
+                        noport = hasil.split('1/')[1].split("/")[0]
+                        if '1' in noport:
+                            noport = '11'
+                        lastport = event.raw_text.split('1/' + str(noport) + '/')[1].split(' ')[0]
+                        if ':' in lastport:
+                            lastport = lastport.split(":")[0]
+                        if '\n' in lastport:
+                            lastport = lastport.split('\n')[0]
+                    except IndexError:
+                        pass
+            if "1-1-" in hasil:
+                try:
+                    noport = event.raw_text.split("1-1-")[1].split("-")[0]
+                    if " " in noport:
+                        raise IndexError
+                    lastport = event.raw_text.split('1-1-' + str(noport) + '-')[1].split(" ")[0]
+
+                    if ':' in lastport:
+                        lastport = lastport.split(":")[0]
+                    if '\n' in lastport:
+                        lastport = lastport.split('\n')[0]
+                except IndexError:
+                    noport = ('1')
+                    lastport = event.raw_text.split('1-')[2].split(' ')[0]
+                    if ':' in lastport:
+                        lastport = lastport.split(":")[0]
+                    if '\n' in lastport:
+                        lastport = lastport.split('\n')[0]
+            else:
+                try:
+
+                    noport = event.raw_text.split("1-")[1].split("-")[0]
+                    lastport = event.raw_text.split('1-' + str(noport) + '-')[1].split(' ')[0]
+                    if ':' in lastport:
+                        lastport = lastport.split(":")[0]
+                    if '\n' in lastport:
+                        lastport = lastport.split('\n')[0]
+                except IndexError:
+                    try:
+                        noport = hasil.split('1-')[1].split("-")[0]
+                        if '1' in noport:
+                            noport = '11'
+                        lastport = event.raw_text.split('1-' + str(noport) + '-')[1].split(' ')[0]
+                        if ':' in lastport:
+                            lastport = lastport.split(":")[0]
+                        if '\n' in lastport:
+                            lastport = lastport.split('\n')[0]
+                    except IndexError:
+                        pass
+            if 'C300' in zte:
+                realport = int(noport) + 3
+            else:
+                realport = int(noport) + 2
+            await asyncio.sleep(2)
+
+            expand3 = WebDriverWait(driver,20).until(EC.presence_of_all_elements_located((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:"+str(realport)+"::di")))
+            for list in expand3:
+                driver.execute_script("arguments[0].scrollIntoView();", list)
+            webdriver.ActionChains(driver).move_to_element(list).click(list).perform()
+            await asyncio.sleep(1)
+            portnya = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.XPATH, "(//span[contains(text(),'Port-"+str(lastport)+"')])[1]")))
+            for list1 in portnya:
+                driver.execute_script("arguments[0].scrollIntoView();", list1)
+                txt = list1.text
+                ok = txt.split('- ')[1]
+        except (TimeoutException,UnboundLocalError):
+            typing = await client(functions.messages.SetTypingRequest(
+                peer=peername,
+                action=types.SendMessageTypingAction()
+            ))
+            await event.reply(message='cek slot port', attributes=typing)
+            driver.quit()
+            return
+
+        if "mobanmo" in hasil:
+            if 'zteg' in hasil:
+                sm = hasil.split('zteg')[1].split('\n')[0].strip()
+                serialnum = ('zteg' + sm).upper()
+                vndr = 'ZTE'
+            if 'fhtt' in hasil:
+                sm = hasil.split('fhtt')[1].split('\n')[0].strip()
+                serialnum = ('fhtt' + sm).upper()
+                vndr = 'ZTE'
+            if 'hwtc' in hasil:
+                sm = hasil.split('hwtc')[1].split('\n')[0].strip()
+                serialnum = ('hwtc' + sm).upper()
+                vndr = 'HUAWEI'
+            if 'alcl' in hasil:
+                sm = hasil.split('alcl')[1].split('\n')[0].strip()
+                serialnum = ('alcl' + sm).upper()
+                vndr = 'ALCATEL'
+            try:
+                onu = hasil.split(lastport + ':')[1].split(' ')[0]
+                if not onu.isdigit():
+                    onu = hasil.split(lastport + ':')[1].split('\n')[0]
+            except IndexError:
+                try:
+                    onu = hasil.split(lastport + '/')[1].split(' ')[0]
+                    if not onu.isdigit():
+                        onu = hasil.split(lastport + '/')[1].split('\n')[0]
+                except IndexError:
+                    pass
+            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "pt1:pt_r1:0:d4:0:j_id36"))).click()
+            WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "(//div[@id='pt1:MA:0:n1:1:pt1:pc1:cb1Create'])[1]"))).click()
+            selectont = Select(WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                           "/html[1]/body[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/span[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[2]/td[2]/select[1]"))))
+            selectont.select_by_visible_text('Generic ONT')
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located(
+                (By.XPATH, "/html[1]/body[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/span[1]/div[1]/table[1]/tbody[1]/tr[1]/td[2]/table[1]/tbody[1]/tr[8]/td[2]/input[1]"))).send_keys(onu)
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located(
+                (By.XPATH, "/html[1]/body[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/span[1]/div[1]/table[1]/tbody[1]/tr[1]/td[2]/table[1]/tbody[1]/tr[6]/td[2]/input[1]"))).send_keys(
+                serialnum)
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located(
+                (By.XPATH,
+                 "(//input[@type='text'])[4]"))).send_keys(vndr)
+            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "(//button[@accesskey='u'])[1]"))).click()
+            cpe = WebDriverWait(driver, 15).until(EC.presence_of_element_located(
+                (By.XPATH, "(//td[@id='pt1:MA:0:n1:2:pt1:j_id__ctru17pc11::_afrTtxt'])[1]"))).text.split('-')[
+                1].strip()
+                
 client.start()
 client.run_until_disconnected()
