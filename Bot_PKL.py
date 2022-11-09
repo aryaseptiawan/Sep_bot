@@ -408,5 +408,243 @@ async def ipnya(event):
                 (By.XPATH, "(//td[@id='pt1:MA:0:n1:2:pt1:j_id__ctru17pc11::_afrTtxt'])[1]"))).text.split('-')[
                 1].strip()
                 
+                with open('simple1.csv', 'w', newline='') as csvfile:
+            fieldnames = ['RESOURCE_ID', 'SERVICE_NAME', 'TARGET_ID', 'CONFIG_ITEM_NAME']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            await asyncio.sleep(0.5)
+            try:
+                if 'mobanmo' not in hasil:
+                    pass
+                else:
+                    if '1527' not in hasil:
+                        pass
+                    else:
+                        try:
+                            writer.writerow(
+                                {'RESOURCE_ID': cpe, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                 'CONFIG_ITEM_NAME': 'CPE'})
+
+                            writer.writerow(
+                                {'RESOURCE_ID': cpe, 'SERVICE_NAME': noiptv, 'TARGET_ID': '',
+                                 'CONFIG_ITEM_NAME': 'CPE'})
+                        except UnboundLocalError:
+                            try:
+
+                                writer.writerow(
+                                    {'RESOURCE_ID': cpe, 'SERVICE_NAME': noiptv, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'CPE'})
+                            except UnboundLocalError:
+                                pass
+                    if '0341' not in hasil:
+                        pass
+                    else:
+                        writer.writerow(
+                            {'RESOURCE_ID': cpe, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                             'CONFIG_ITEM_NAME': 'CPE'})
+
+                if '1527' not in hasil:
+                    pass
+                else:
+                    try:
+                        writer.writerow(
+                            {'RESOURCE_ID': ok, 'SERVICE_NAME': noinet, 'TARGET_ID': target_id,
+                                 'CONFIG_ITEM_NAME': 'Service_Port'})
+
+                        writer.writerow(
+                                {'RESOURCE_ID': ok, 'SERVICE_NAME': noiptv, 'TARGET_ID': target_id,
+                                     'CONFIG_ITEM_NAME': 'Service_Port'})
+                    except UnboundLocalError:
+                        try:
+
+                            writer.writerow(
+                                {'RESOURCE_ID': ok, 'SERVICE_NAME': noiptv, 'TARGET_ID': target_id,
+                                 'CONFIG_ITEM_NAME': 'Service_Port'})
+                        except UnboundLocalError:
+                            pass
+
+                if '0341' not in hasil:
+                    pass
+                else:
+                    writer.writerow(
+                        {'RESOURCE_ID': ok, 'SERVICE_NAME': novoice, 'TARGET_ID': target_id,
+                             'CONFIG_ITEM_NAME': 'Service_Port'})
+                if "inet" and "voip" in hasil:
+                    try:
+                        vlaninet = hasil.split('inet :')[2].split('\n')[0].strip()
+                        vlanvoice = hasil.split('voip :')[1].split('\n')[0].strip()
+                        writer.writerow(
+                            {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '', 'CONFIG_ITEM_NAME': 'S-Vlan'})
+                        writer.writerow(
+                            {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '', 'CONFIG_ITEM_NAME': 'S-Vlan'})
+                    except IndexError:
+                        try:
+                            vlaninet = hasil.split('inet:')[2].split('\n')[0].strip()
+                            vlanvoice = hasil.split('voip:')[1].split('\n')[0].strip()
+                            writer.writerow(
+                                    {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'S-Vlan'})
+                            writer.writerow(
+                                    {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'S-Vlan'})
+                        except IndexError:
+                            try:
+                                vlaninet = hasil.split('inet:')[1].split('\n')[0].strip()
+                                vlanvoice = hasil.split('voip:')[1].split('\n')[0].strip()
+                                writer.writerow(
+                                        {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                         'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                writer.writerow(
+                                        {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                         'CONFIG_ITEM_NAME': 'S-Vlan'})
+                            except IndexError:
+                                try:
+                                    vlaninet = hasil.split('inet ')[2].split('\n')[0].strip()
+                                    vlanvoice = hasil.split('voip ')[1].split('\n')[0].strip()
+                                    writer.writerow(
+                                        {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                         'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                    writer.writerow(
+                                        {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                         'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                except IndexError:
+                                    try:
+                                        vlaninet = hasil.split('inet ')[1].split('\n')[0].strip()
+                                        vlanvoice = hasil.split('voip ')[1].split('\n')[0].strip()
+                                        if not vlaninet.isdigit():
+                                            vlaninet = hasil.split('inet :')[1].split('\n')[0]
+                                            vlanvoice = hasil.split('voip :')[1].split('\n')[0]
+                                        writer.writerow(
+                                            {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                             'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                        writer.writerow(
+                                            {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                             'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                    except IndexError:
+                                        try:
+                                            vlanvoice = hasil.split('voip ')[1].split('\n')[0].strip()
+                                            if not vlanvoice.isdigit():
+                                                vlanvoice = hasil.split('voip :')[1].split('\n')[0]
+                                            writer.writerow(
+                                                {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                                 'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                        except IndexError:
+                                            pass
+
+                elif 'voip' and 'voice' not in hasil:
+                    try:
+                        vlaninet = hasil.split('inet ')[2].split('\n')[0]
+                        writer.writerow(
+                            {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'S-Vlan'})
+                        if not vlaninet.isdigit():
+                            vlaninet = hasil.split('inet :')[2].split('\n')[0]
+                            writer.writerow(
+                            {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                 'CONFIG_ITEM_NAME': 'S-Vlan'})
+                    except IndexError:
+                        try:
+                            vlaninet = hasil.split('inet: ')[2].split('\n')[0]
+                            writer.writerow(
+                                {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                 'CONFIG_ITEM_NAME': 'S-Vlan'})
+                        except IndexError:
+                            try:
+                                vlaninet = hasil.split('inet :')[1].split('\n')[0]
+                                writer.writerow(
+                                    {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'S-Vlan'})
+                            except IndexError:
+                                try:
+                                    vlaninet = hasil.split('inet ')[1].split('\n')[0]
+                                    writer.writerow(
+                                        {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                         'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                    if not vlaninet.isdigit():
+                                        vlaninet = hasil.split('inet: ')[1].split('\n')[0]
+                                        writer.writerow(
+                                            {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                             'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                except IndexError:
+                                    pass
+                if "inet" and "voice" in hasil:
+                    try:
+                        vlaninet = hasil.split('inet :')[2].split('\n')[0].strip()
+                        vlanvoice = hasil.split('voice :')[1].split('\n')[0].strip()
+                        writer.writerow(
+                            {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '', 'CONFIG_ITEM_NAME': 'S-Vlan'})
+                        writer.writerow(
+                            {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '', 'CONFIG_ITEM_NAME': 'S-Vlan'})
+                    except IndexError:
+                        try:
+                            vlaninet = hasil.split('inet:')[2].split('\n')[0].strip()
+                            vlanvoice = hasil.split('voice:')[1].split('\n')[0].strip()
+                            writer.writerow(
+                                    {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'S-Vlan'})
+                            writer.writerow(
+                                    {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'S-Vlan'})
+                        except IndexError:
+                            try:
+                                vlaninet = hasil.split('inet ')[2].split('\n')[0].strip()
+                                vlanvoice = hasil.split('voice ')[1].split('\n')[0].strip()
+                                writer.writerow(
+                                    {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                writer.writerow(
+                                    {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                     'CONFIG_ITEM_NAME': 'S-Vlan'})
+                            except IndexError:
+                                try:
+                                    vlaninet = hasil.split('inet ')[1].split('\n')[0].strip()
+                                    vlanvoice = hasil.split('voice ')[1].split('\n')[0].strip()
+                                    if not vlaninet.isdigit():
+                                        vlaninet = hasil.split('inet :')[1].split('\n')[0]
+                                        vlanvoice = hasil.split('voice :')[1].split('\n')[0]
+                                    writer.writerow(
+                                        {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
+                                         'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                    writer.writerow(
+                                        {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                         'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                except IndexError:
+                                    try:
+                                        vlanvoice = hasil.split('voice ')[1].split('\n')[0].strip()
+                                        if not vlanvoice.isdigit():
+                                            vlanvoice = hasil.split('voice :')[1].split('\n')[0]
+                                        writer.writerow(
+                                            {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                             'CONFIG_ITEM_NAME': 'S-Vlan'})
+                                    except IndexError:
+                                        pass
+                elif 'inet' not in hasil:
+                    try:
+                        vlanvoice = hasil.split('voice ')[1].split('\n')[0].strip()
+                        if not vlanvoice.isdigit():
+                            vlanvoice = hasil.split('voice :')[1].split('\n')[0]
+                        writer.writerow(
+                            {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                             'CONFIG_ITEM_NAME': 'S-Vlan'})
+                    except IndexError:
+                        try:
+                            print('kentang')
+                            vlanvoice = hasil.split('voip ')[1].split('\n')[0].strip()
+                            if not vlanvoice.isdigit():
+                                vlanvoice = hasil.split('voip :')[1].split('\n')[0]
+                            writer.writerow(
+                                {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
+                                 'CONFIG_ITEM_NAME': 'S-Vlan'})
+                        except IndexError:
+                            pass
+            except (IndexError,UnboundLocalError):
+                typing = await client(functions.messages.SetTypingRequest(
+                    peer=peername,
+                    action=types.SendMessageTypingAction()
+                ))
+                await event.reply(message='cek lagi vlan inet voip', attributes=typing)
+                driver.quit()
+                return
+            
 client.start()
 client.run_until_disconnected()
