@@ -1,5 +1,4 @@
 import asyncio
-
 import selenium.common.exceptions
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
@@ -26,19 +25,19 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 
 api_id = 20381838
 api_hash = '6f00ba3c973f24de68b615813607f798'
-# bott = '5268523279:AAG_ALOUSp5SgQKYEbw_RHbYEhj0ZDNf_Rk'
 client = TelegramClient('Arya', api_id, api_hash)
 phone_number = '+6281231392790'
 
-@client.on(events.NewMessage(incoming=True, chats=True))
+@client.on(events.NewMessage( chats=801301274))
 async def ipnya(event):
     Username = "29071996"
     Password = "Audi7199"
-    hasil = await client.get_entity('https://t.me/+WVui7S8vNvNjMDVl')
-    print(hasil)
+    # texte = await client.get_entity('https://t.me/+WVui7S8vNvNjMDVl')
+    # print(texte)
+    hasil = event.raw_text.lower()
     if 'moban' in hasil:
         chrome_options = Options()
-        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--star-maximized")
         chrome_options.add_argument("--headless")
         chrome_options.add_experimental_option(
             'excludeSwitches', ['enable-logging'])
@@ -767,7 +766,7 @@ async def ipnya(event):
             ))
             fl = WebDriverWait(driver, 15).until(
                 EC.presence_of_element_located((By.XPATH, '//input[@type="file"]')))
-            fl.send_keys(r"C:\Users\Asus\Desktop\PKL\simple1.csv")
+            fl.send_keys(r"D:\KULIAH\SEMESTER 7 (PKL)\Sep_bot\simple1.csv")
             driver.find_element(
                 By.XPATH, "(//button[normalize-space()='Process'])[1]").click()
             hasilalter = WebDriverWait(driver, 40).until(
