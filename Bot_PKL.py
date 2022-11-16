@@ -24,29 +24,31 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
                     level=logging.WARNING)
 # created by ARYASEPTIAWAN
 
-api_id = 11036912
-api_hash = '5499501717:AAGHvy9kFlvTjn_BY1wHfssQBfqhk0_12ok'
+api_id = 20381838
+api_hash = '6f00ba3c973f24de68b615813607f798'
 # bott = '5268523279:AAG_ALOUSp5SgQKYEbw_RHbYEhj0ZDNf_Rk'
 client = TelegramClient('Arya', api_id, api_hash)
 phone_number = '+6281231392790'
 
-# @client.on(events.NewMessage(incoming=True, chats=522050610))
-@client.on(events.NewMessage( chats=522050610))
+@client.on(events.NewMessage(incoming=True, chats=True))
 async def ipnya(event):
     Username = "29071996"
     Password = "Audi7199"
-    chrome_options = Options()
-    chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    # chrome_options.add_argument('--disable-gpu')
-    PATH = Service("C:\Intel\chromedriver.exe")
-    driver = webdriver.Chrome(service=PATH, options=chrome_options)
-    hasil = event.raw_text.lower()
-    name = event.chat_id
-    real_id, peer_type = utils.resolve_id(name)
-    peername = peer_type(real_id)
+    hasil = await client.get_entity('https://t.me/+WVui7S8vNvNjMDVl')
+    print(hasil)
     if 'moban' in hasil:
+        chrome_options = Options()
+        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_experimental_option(
+            'excludeSwitches', ['enable-logging'])
+
+        PATH = Service("C:\webdrivers\chromedriver.exe")
+        driver = webdriver.Chrome(service=PATH, options=chrome_options)
+
+        name = event.chat_id
+        real_id, peer_type = utils.resolve_id(name)
+        peername = peer_type(real_id)
         typing = await client(functions.messages.SetTypingRequest(
             peer=peername,
             action=types.SendMessageTypingAction()
@@ -118,92 +120,129 @@ async def ipnya(event):
                 try:
 
                     noncli = hasil.split('ncli: ')[1].split('\n')[0].strip()
-                    inet = event.raw_text.split('1527')[1].split('\n')[0].strip()
+                    inet = event.raw_text.split(
+                        '1527')[1].split('\n')[0].strip()
                     noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                    voice = event.raw_text.split('0341')[1].split(' ')[0].strip()
+                    voice = event.raw_text.split(
+                        '0341')[1].split(' ')[0].strip()
                     novoice = str(noncli + '_0341' + voice + '_VOICE')
                     noiptv = str(noncli + '_1527' + inet + '_IPTV')
                 except IndexError:
                     try:
-                        noncli = hasil.split('ncli: ')[1].split('\n')[0].strip()
-                        inet = event.raw_text.split('1527')[1].split(' ')[0].strip()
+                        noncli = hasil.split('ncli: ')[
+                                             1].split('\n')[0].strip()
+                        inet = event.raw_text.split(
+                            '1527')[1].split(' ')[0].strip()
                         noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                        voice = event.raw_text.split('0341')[1].split('\n')[0].strip()
+                        voice = event.raw_text.split(
+                            '0341')[1].split('\n')[0].strip()
                         novoice = str(noncli + '_0341' + voice + '_VOICE')
                         noiptv = str(noncli + '_1527' + inet + '_IPTV')
                     except IndexError:
                         try:
-                            noncli = hasil.split('ncli: ')[1].split('\n')[0].strip()
-                            voice = event.raw_text.split('0341')[1].split('\n')[0].strip()
+                            noncli = hasil.split('ncli: ')[
+                                                 1].split('\n')[0].strip()
+                            voice = event.raw_text.split(
+                                '0341')[1].split('\n')[0].strip()
                             novoice = str(noncli + '_0341' + voice + '_VOICE')
                         except IndexError:
                             try:
-                                noncli = hasil.split('ncli: ')[1].split('\n')[0].strip()
-                                inet = event.raw_text.split('1527')[1].split('\n')[0].strip()
-                                noinet = str(noncli + '_1527' + inet + '_INTERNET')
+                                noncli = hasil.split('ncli: ')[
+                                                     1].split('\n')[0].strip()
+                                inet = event.raw_text.split(
+                                    '1527')[1].split('\n')[0].strip()
+                                noinet = str(noncli + '_1527' +
+                                             inet + '_INTERNET')
                                 noiptv = str(noncli + '_1527' + inet + '_IPTV')
                             except IndexError:
                                 pass
             else:
                 try:
                     noncli = hasil.split('ncli\n: ')[1].split('\n')[0].strip()
-                    inet = event.raw_text.split('1527')[1].split('/')[0].strip()
+                    inet = event.raw_text.split(
+                        '1527')[1].split('/')[0].strip()
                     noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                    voice = event.raw_text.split('0341')[1].split('\n')[0].strip()
+                    voice = event.raw_text.split(
+                        '0341')[1].split('\n')[0].strip()
                     novoice = str(noncli + '_0341' + voice + '_VOICE')
                     noiptv = str(noncli + '_1527' + inet + '_IPTV')
                     if not inet.isdigit():
-                        noncli = hasil.split('ncli\n: ')[1].split('\n')[0].strip()
-                        inet = event.raw_text.split('1527')[1].split('\n')[0].strip()
+                        noncli = hasil.split('ncli\n: ')[
+                                             1].split('\n')[0].strip()
+                        inet = event.raw_text.split(
+                            '1527')[1].split('\n')[0].strip()
                         noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                        voice = event.raw_text.split('0341')[1].split('/')[0].strip()
+                        voice = event.raw_text.split(
+                            '0341')[1].split('/')[0].strip()
                         novoice = str(noncli + '_0341' + voice + '_VOICE')
                         noiptv = str(noncli + '_1527' + inet + '_IPTV')
 
                 except IndexError:
                     try:
-                        noncli = hasil.split('ncli : ')[1].split('\n')[0].strip()
-                        inet = event.raw_text.split('1527')[1].split('/')[0].strip()
+                        noncli = hasil.split('ncli : ')[
+                                             1].split('\n')[0].strip()
+                        inet = event.raw_text.split(
+                            '1527')[1].split('/')[0].strip()
                         noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                        voice = event.raw_text.split('0341')[1].split('\n')[0].strip()
+                        voice = event.raw_text.split(
+                            '0341')[1].split('\n')[0].strip()
                         novoice = str(noncli + '_0341' + voice + '_VOICE')
                         noiptv = str(noncli + '_1527' + inet + '_IPTV')
                         if not inet.isdigit():
-                            noncli = hasil.split('ncli : ')[1].split('\n')[0].strip()
-                            inet = event.raw_text.split('1527')[1].split('\n')[0].strip()
+                            noncli = hasil.split('ncli : ')[
+                                                 1].split('\n')[0].strip()
+                            inet = event.raw_text.split(
+                                '1527')[1].split('\n')[0].strip()
                             noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                            voice = event.raw_text.split('0341')[1].split('/')[0].strip()
+                            voice = event.raw_text.split(
+                                '0341')[1].split('/')[0].strip()
                             novoice = str(noncli + '_0341' + voice + '_VOICE')
                             noiptv = str(noncli + '_1527' + inet + '_IPTV')
                         if not voice.isdigit():
-                            noncli = hasil.split('ncli : ')[1].split('\n')[0].strip()
-                            inet = event.raw_text.split('1527')[1].split('\n')[0].strip()
+                            noncli = hasil.split('ncli : ')[
+                                                 1].split('\n')[0].strip()
+                            inet = event.raw_text.split(
+                                '1527')[1].split('\n')[0].strip()
                             noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                            voice = event.raw_text.split('0341')[1].split('\n')[0].strip()
+                            voice = event.raw_text.split(
+                                '0341')[1].split('\n')[0].strip()
                             novoice = str(noncli + '_0341' + voice + '_VOICE')
                             noiptv = str(noncli + '_1527' + inet + '_IPTV')
                     except IndexError:
                         try:
-                            noncli = hasil.split('ncli\n: ')[1].split('\n')[0].strip()
-                            voice = event.raw_text.split('0341')[1].split('\n')[0].strip()
+                            noncli = hasil.split('ncli\n: ')[
+                                                 1].split('\n')[0].strip()
+                            voice = event.raw_text.split(
+                                '0341')[1].split('\n')[0].strip()
                             novoice = str(noncli + '_0341' + voice + '_VOICE')
                         except IndexError:
                             try:
-                                noncli = hasil.split('ncli : ')[1].split('\n')[0].strip()
-                                voice = event.raw_text.split('0341')[1].split('\n')[0].strip()
-                                novoice = str(noncli + '_0341' + voice + '_VOICE')
+                                noncli = hasil.split('ncli : ')[
+                                                     1].split('\n')[0].strip()
+                                voice = event.raw_text.split(
+                                    '0341')[1].split('\n')[0].strip()
+                                novoice = str(
+                                    noncli + '_0341' + voice + '_VOICE')
                             except IndexError:
                                 try:
-                                    noncli = hasil.split('ncli\n: ')[1].split('\n')[0].strip()
-                                    inet = event.raw_text.split('1527')[1].split('\n')[0].strip()
-                                    noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                                    noiptv = str(noncli + '_1527' + inet + '_IPTV')
+                                    noncli = hasil.split('ncli\n: ')[
+                                                         1].split('\n')[0].strip()
+                                    inet = event.raw_text.split(
+                                        '1527')[1].split('\n')[0].strip()
+                                    noinet = str(
+                                        noncli + '_1527' + inet + '_INTERNET')
+                                    noiptv = str(
+                                        noncli + '_1527' + inet + '_IPTV')
                                 except IndexError:
                                     try:
-                                        noncli = hasil.split('ncli : ')[1].split('\n')[0].strip()
-                                        inet = event.raw_text.split('1527')[1].split('\n')[0].strip()
-                                        noinet = str(noncli + '_1527' + inet + '_INTERNET')
-                                        noiptv = str(noncli + '_1527' + inet + '_IPTV')
+                                        noncli = hasil.split('ncli : ')[
+                                                             1].split('\n')[0].strip()
+                                        inet = event.raw_text.split(
+                                            '1527')[1].split('\n')[0].strip()
+                                        noinet = str(
+                                            noncli + '_1527' + inet + '_INTERNET')
+                                        noiptv = str(
+                                            noncli + '_1527' + inet + '_IPTV')
                                     except IndexError:
                                         pass
         except IndexError:
@@ -220,16 +259,28 @@ async def ipnya(event):
             await event.reply(message='GP belum connect', attributes=typing)
             return
         try:
-            WebDriverWait(driver,20).until(EC.presence_of_element_located((By.NAME, "j_username"))).send_keys(Username)
-            driver.find_element_by_name("j_password").send_keys(Password, Keys.ENTER)
-            WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, "pt1:pt_r1:0:d4:0:j_id36"))).click()
+            WebDriverWait(driver, 20).until(EC.presence_of_element_located(
+                (By.NAME, "j_username"))).send_keys(Username)
+            driver.find_element(By.NAME, "j_password").send_keys(
+                Password, Keys.ENTER)
+            # WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, "(//a[@title='Show next panels'])[1]"))).click()
+            # # WebDriverWait(driver, 30).until(
+            #                     # EC.presence_of_element_located(
+            #                         # (By.XPATH,
+            #                          # "(//span[@class='xa9'][img[@title='Idle'][@src='/Inventory/afr/fusion/connected.png']])[1]")))
+            # WebDriverWait(driver, 30).until(EC.element_to_be_clickable(
+            #     (By.XPATH, "(//a[normalize-space()='Administration'])[1]"))).click()
+            WebDriverWait(driver, 30).until(EC.element_to_be_clickable(
+                (By.XPATH, "(//a[normalize-space()='Physical Devices'])[1]"))).click()
             try:
-                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[1]/form/div[1]/div[2]/div/div[5]/div/div[1]/div/div/div[3]/div/div/div/div[1]/div/div/div[1]/div/div/div[1]/div/div/div/div[2]/div/div[2]/div/div/div[1]/div/div/div/div[1]/div[3]/div/table/tbody/tr/td/table/tbody/tr[2]/td[2]/table/tbody/tr[5]/td[4]/table/tbody/tr/td[2]/input'))).send_keys(kentang)
+                WebDriverWait(driver, 30).until(EC.presence_of_element_located(
+                    (By.XPATH, "(//label[normalize-space()='Physical Address']/parent::span/parent::td/following-sibling::td//input)[1]"))).send_keys(kentang)
             except UnboundLocalError:
                 driver.quit()
                 return
-            driver.find_element_by_id("pt1:MA:0:n1:1:pt1:sv8:searchButton").click()
-            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="pt1:MA:0:n1:1:pt1:pc1:rtId:0:cl1"]'))).click()
+            driver.find_element(By.XPATH, "(//a[@accesskey='a'])[1]").click()
+            WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
+                (By.XPATH, '//*[@id="pt1:MA:0:n1:1:pt1:pc1:rtId:0:cl1"]'))).click()
         except (TimeoutException, ConnectionResetError):
             typing = await client(functions.messages.SetTypingRequest(
                 peer=peername,
@@ -238,34 +289,45 @@ async def ipnya(event):
             await event.reply(message='uimnya lemot ni', attributes=typing)
             driver.quit()
             return
-         WebDriverWait(driver, 25).until(
+        WebDriverWait(driver, 25).until(
             EC.element_to_be_clickable((By.XPATH, "(//div[@id='pt1:MA:0:n1:2:pt1:pc21:_vw'])[1]"))).click()
-        WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:_clmns"))).click()
-        WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:_shwMr"))).click()
+        WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
+            (By.ID, "pt1:MA:0:n1:2:pt1:pc21:_clmns"))).click()
+        WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
+            (By.ID, "pt1:MA:0:n1:2:pt1:pc21:_shwMr"))).click()
 
         WebDriverWait(driver, 15).until(
             EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:_shwClmDS::removeall"))).click()
         await asyncio.sleep(1)
-        driver.find_element_by_id("pt1:MA:0:n1:2:pt1:pc21:showColsDlg::ok").click()
+        driver.find_element(
+            By.ID, "pt1:MA:0:n1:2:pt1:pc21:showColsDlg::ok").click()
         await asyncio.sleep(1)
         try:
-            zte = WebDriverWait(driver,20).until(EC.presence_of_element_located((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0:cl22"))).text
+            zte = WebDriverWait(driver, 20).until(EC.presence_of_element_located(
+                (By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0:cl22"))).text
 
-            target_id = driver.find_element_by_id("pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0:cl22").text.split(" ")[6].split(" ")[0]
-            expand = WebDriverWait(driver, 20).until((EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0::di"))))
-            webdriver.ActionChains(driver).move_to_element(expand).click(expand).perform()
+            target_id = driver.find_element(
+                By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0:cl22").text.split(" ")[6].split(" ")[0]
+            expand = WebDriverWait(driver, 20).until((EC.element_to_be_clickable(
+                (By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:0::di"))))
+            webdriver.ActionChains(driver).move_to_element(
+                expand).click(expand).perform()
             await asyncio.sleep(1)
-            expand1 = WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:1::di")))
-            webdriver.ActionChains(driver).move_to_element(expand1).click(expand1).perform()
+            expand1 = WebDriverWait(driver, 20).until(EC.element_to_be_clickable(
+                (By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:1::di")))
+            webdriver.ActionChains(driver).move_to_element(
+                expand1).click(expand1).perform()
             expand2 = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:2::di")))
-            webdriver.ActionChains(driver).move_to_element(expand2).click(expand2).perform()
+            webdriver.ActionChains(driver).move_to_element(
+                expand2).click(expand2).perform()
             if "1/1/" in hasil:
                 try:
                     noport = event.raw_text.split("1/1/")[1].split("/")[0]
                     if " " in noport:
                         raise IndexError
-                    lastport = event.raw_text.split('1/1/' + str(noport) + '/')[1].split(" ")[0]
+                    lastport = event.raw_text.split(
+                        '1/1/' + str(noport) + '/')[1].split(" ")[0]
                     if ':' in lastport:
                         lastport = lastport.split(":")[0]
                     if '\n' in lastport:
@@ -280,7 +342,8 @@ async def ipnya(event):
             else:
                 try:
                     noport = event.raw_text.split("1/")[1].split("/")[0]
-                    lastport = event.raw_text.split('1/' + str(noport) + '/')[1].split(' ')[0]
+                    lastport = event.raw_text.split(
+                        '1/' + str(noport) + '/')[1].split(' ')[0]
                     if ':' in lastport:
                         lastport = lastport.split(":")[0]
                     if '\n' in lastport:
@@ -290,7 +353,8 @@ async def ipnya(event):
                         noport = hasil.split('1/')[1].split("/")[0]
                         if '1' in noport:
                             noport = '11'
-                        lastport = event.raw_text.split('1/' + str(noport) + '/')[1].split(' ')[0]
+                        lastport = event.raw_text.split(
+                            '1/' + str(noport) + '/')[1].split(' ')[0]
                         if ':' in lastport:
                             lastport = lastport.split(":")[0]
                         if '\n' in lastport:
@@ -302,7 +366,8 @@ async def ipnya(event):
                     noport = event.raw_text.split("1-1-")[1].split("-")[0]
                     if " " in noport:
                         raise IndexError
-                    lastport = event.raw_text.split('1-1-' + str(noport) + '-')[1].split(" ")[0]
+                    lastport = event.raw_text.split(
+                        '1-1-' + str(noport) + '-')[1].split(" ")[0]
 
                     if ':' in lastport:
                         lastport = lastport.split(":")[0]
@@ -319,7 +384,8 @@ async def ipnya(event):
                 try:
 
                     noport = event.raw_text.split("1-")[1].split("-")[0]
-                    lastport = event.raw_text.split('1-' + str(noport) + '-')[1].split(' ')[0]
+                    lastport = event.raw_text.split(
+                        '1-' + str(noport) + '-')[1].split(' ')[0]
                     if ':' in lastport:
                         lastport = lastport.split(":")[0]
                     if '\n' in lastport:
@@ -329,7 +395,8 @@ async def ipnya(event):
                         noport = hasil.split('1-')[1].split("-")[0]
                         if '1' in noport:
                             noport = '11'
-                        lastport = event.raw_text.split('1-' + str(noport) + '-')[1].split(' ')[0]
+                        lastport = event.raw_text.split(
+                            '1-' + str(noport) + '-')[1].split(' ')[0]
                         if ':' in lastport:
                             lastport = lastport.split(":")[0]
                         if '\n' in lastport:
@@ -342,17 +409,20 @@ async def ipnya(event):
                 realport = int(noport) + 2
             await asyncio.sleep(2)
 
-            expand3 = WebDriverWait(driver,20).until(EC.presence_of_all_elements_located((By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:"+str(realport)+"::di")))
+            expand3 = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located(
+                (By.ID, "pt1:MA:0:n1:2:pt1:pc21:physicalDeviceHierarchyTreeTable:"+str(realport)+"::di")))
             for list in expand3:
                 driver.execute_script("arguments[0].scrollIntoView();", list)
-            webdriver.ActionChains(driver).move_to_element(list).click(list).perform()
+            webdriver.ActionChains(driver).move_to_element(
+                list).click(list).perform()
             await asyncio.sleep(1)
-            portnya = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.XPATH, "(//span[contains(text(),'Port-"+str(lastport)+"')])[1]")))
+            portnya = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located(
+                (By.XPATH, "(//span[contains(text(),'Port-"+str(lastport)+"')])[1]")))
             for list1 in portnya:
                 driver.execute_script("arguments[0].scrollIntoView();", list1)
                 txt = list1.text
                 ok = txt.split('- ')[1]
-        except (TimeoutException,UnboundLocalError):
+        except (TimeoutException, UnboundLocalError):
             typing = await client(functions.messages.SetTypingRequest(
                 peer=peername,
                 action=types.SendMessageTypingAction()
@@ -389,7 +459,8 @@ async def ipnya(event):
                         onu = hasil.split(lastport + '/')[1].split('\n')[0]
                 except IndexError:
                     pass
-            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "pt1:pt_r1:0:d4:0:j_id36"))).click()
+            WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                (By.ID, "pt1:pt_r1:0:d4:0:j_id36"))).click()
             WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.XPATH, "(//div[@id='pt1:MA:0:n1:1:pt1:pc1:cb1Create'])[1]"))).click()
             selectont = Select(WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH,
@@ -403,13 +474,15 @@ async def ipnya(event):
             WebDriverWait(driver, 10).until(EC.presence_of_element_located(
                 (By.XPATH,
                  "(//input[@type='text'])[4]"))).send_keys(vndr)
-            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "(//button[@accesskey='u'])[1]"))).click()
+            WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
+                (By.XPATH, "(//button[@accesskey='u'])[1]"))).click()
             cpe = WebDriverWait(driver, 15).until(EC.presence_of_element_located(
                 (By.XPATH, "(//td[@id='pt1:MA:0:n1:2:pt1:j_id__ctru17pc11::_afrTtxt'])[1]"))).text.split('-')[
                 1].strip()
-                
-                with open('simple1.csv', 'w', newline='') as csvfile:
-            fieldnames = ['RESOURCE_ID', 'SERVICE_NAME', 'TARGET_ID', 'CONFIG_ITEM_NAME']
+
+        with open('simple1.csv', 'w', newline='') as csvfile:
+            fieldnames = ['RESOURCE_ID', 'SERVICE_NAME',
+                'TARGET_ID', 'CONFIG_ITEM_NAME']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             await asyncio.sleep(0.5)
@@ -471,16 +544,20 @@ async def ipnya(event):
                              'CONFIG_ITEM_NAME': 'Service_Port'})
                 if "inet" and "voip" in hasil:
                     try:
-                        vlaninet = hasil.split('inet :')[2].split('\n')[0].strip()
-                        vlanvoice = hasil.split('voip :')[1].split('\n')[0].strip()
+                        vlaninet = hasil.split('inet :')[
+                                               2].split('\n')[0].strip()
+                        vlanvoice = hasil.split(
+                            'voip :')[1].split('\n')[0].strip()
                         writer.writerow(
                             {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '', 'CONFIG_ITEM_NAME': 'S-Vlan'})
                         writer.writerow(
                             {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '', 'CONFIG_ITEM_NAME': 'S-Vlan'})
                     except IndexError:
                         try:
-                            vlaninet = hasil.split('inet:')[2].split('\n')[0].strip()
-                            vlanvoice = hasil.split('voip:')[1].split('\n')[0].strip()
+                            vlaninet = hasil.split('inet:')[2].split('\n')[
+                                                   0].strip()
+                            vlanvoice = hasil.split(
+                                'voip:')[1].split('\n')[0].strip()
                             writer.writerow(
                                     {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                      'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -489,8 +566,10 @@ async def ipnya(event):
                                      'CONFIG_ITEM_NAME': 'S-Vlan'})
                         except IndexError:
                             try:
-                                vlaninet = hasil.split('inet:')[1].split('\n')[0].strip()
-                                vlanvoice = hasil.split('voip:')[1].split('\n')[0].strip()
+                                vlaninet = hasil.split('inet:')[1].split('\n')[
+                                                       0].strip()
+                                vlanvoice = hasil.split(
+                                    'voip:')[1].split('\n')[0].strip()
                                 writer.writerow(
                                         {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                          'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -499,8 +578,10 @@ async def ipnya(event):
                                          'CONFIG_ITEM_NAME': 'S-Vlan'})
                             except IndexError:
                                 try:
-                                    vlaninet = hasil.split('inet ')[2].split('\n')[0].strip()
-                                    vlanvoice = hasil.split('voip ')[1].split('\n')[0].strip()
+                                    vlaninet = hasil.split('inet ')[2].split('\n')[
+                                                           0].strip()
+                                    vlanvoice = hasil.split(
+                                        'voip ')[1].split('\n')[0].strip()
                                     writer.writerow(
                                         {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                          'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -509,11 +590,15 @@ async def ipnya(event):
                                          'CONFIG_ITEM_NAME': 'S-Vlan'})
                                 except IndexError:
                                     try:
-                                        vlaninet = hasil.split('inet ')[1].split('\n')[0].strip()
-                                        vlanvoice = hasil.split('voip ')[1].split('\n')[0].strip()
+                                        vlaninet = hasil.split('inet ')[1].split('\n')[
+                                                               0].strip()
+                                        vlanvoice = hasil.split(
+                                            'voip ')[1].split('\n')[0].strip()
                                         if not vlaninet.isdigit():
-                                            vlaninet = hasil.split('inet :')[1].split('\n')[0]
-                                            vlanvoice = hasil.split('voip :')[1].split('\n')[0]
+                                            vlaninet = hasil.split('inet :')[
+                                                                   1].split('\n')[0]
+                                            vlanvoice = hasil.split(
+                                                'voip :')[1].split('\n')[0]
                                         writer.writerow(
                                             {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                              'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -522,9 +607,11 @@ async def ipnya(event):
                                              'CONFIG_ITEM_NAME': 'S-Vlan'})
                                     except IndexError:
                                         try:
-                                            vlanvoice = hasil.split('voip ')[1].split('\n')[0].strip()
+                                            vlanvoice = hasil.split(
+                                                'voip ')[1].split('\n')[0].strip()
                                             if not vlanvoice.isdigit():
-                                                vlanvoice = hasil.split('voip :')[1].split('\n')[0]
+                                                vlanvoice = hasil.split(
+                                                    'voip :')[1].split('\n')[0]
                                             writer.writerow(
                                                 {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
                                                  'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -550,18 +637,21 @@ async def ipnya(event):
                                  'CONFIG_ITEM_NAME': 'S-Vlan'})
                         except IndexError:
                             try:
-                                vlaninet = hasil.split('inet :')[1].split('\n')[0]
+                                vlaninet = hasil.split('inet :')[
+                                                       1].split('\n')[0]
                                 writer.writerow(
                                     {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                      'CONFIG_ITEM_NAME': 'S-Vlan'})
                             except IndexError:
                                 try:
-                                    vlaninet = hasil.split('inet ')[1].split('\n')[0]
+                                    vlaninet = hasil.split(
+                                        'inet ')[1].split('\n')[0]
                                     writer.writerow(
                                         {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                          'CONFIG_ITEM_NAME': 'S-Vlan'})
                                     if not vlaninet.isdigit():
-                                        vlaninet = hasil.split('inet: ')[1].split('\n')[0]
+                                        vlaninet = hasil.split('inet: ')[
+                                                               1].split('\n')[0]
                                         writer.writerow(
                                             {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                              'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -569,16 +659,20 @@ async def ipnya(event):
                                     pass
                 if "inet" and "voice" in hasil:
                     try:
-                        vlaninet = hasil.split('inet :')[2].split('\n')[0].strip()
-                        vlanvoice = hasil.split('voice :')[1].split('\n')[0].strip()
+                        vlaninet = hasil.split('inet :')[
+                                               2].split('\n')[0].strip()
+                        vlanvoice = hasil.split('voice :')[
+                                                1].split('\n')[0].strip()
                         writer.writerow(
                             {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '', 'CONFIG_ITEM_NAME': 'S-Vlan'})
                         writer.writerow(
                             {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '', 'CONFIG_ITEM_NAME': 'S-Vlan'})
                     except IndexError:
                         try:
-                            vlaninet = hasil.split('inet:')[2].split('\n')[0].strip()
-                            vlanvoice = hasil.split('voice:')[1].split('\n')[0].strip()
+                            vlaninet = hasil.split('inet:')[2].split('\n')[
+                                                   0].strip()
+                            vlanvoice = hasil.split(
+                                'voice:')[1].split('\n')[0].strip()
                             writer.writerow(
                                     {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                      'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -587,8 +681,10 @@ async def ipnya(event):
                                      'CONFIG_ITEM_NAME': 'S-Vlan'})
                         except IndexError:
                             try:
-                                vlaninet = hasil.split('inet ')[2].split('\n')[0].strip()
-                                vlanvoice = hasil.split('voice ')[1].split('\n')[0].strip()
+                                vlaninet = hasil.split('inet ')[2].split('\n')[
+                                                       0].strip()
+                                vlanvoice = hasil.split(
+                                    'voice ')[1].split('\n')[0].strip()
                                 writer.writerow(
                                     {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                      'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -597,11 +693,15 @@ async def ipnya(event):
                                      'CONFIG_ITEM_NAME': 'S-Vlan'})
                             except IndexError:
                                 try:
-                                    vlaninet = hasil.split('inet ')[1].split('\n')[0].strip()
-                                    vlanvoice = hasil.split('voice ')[1].split('\n')[0].strip()
+                                    vlaninet = hasil.split('inet ')[1].split('\n')[
+                                                           0].strip()
+                                    vlanvoice = hasil.split(
+                                        'voice ')[1].split('\n')[0].strip()
                                     if not vlaninet.isdigit():
-                                        vlaninet = hasil.split('inet :')[1].split('\n')[0]
-                                        vlanvoice = hasil.split('voice :')[1].split('\n')[0]
+                                        vlaninet = hasil.split('inet :')[
+                                                               1].split('\n')[0]
+                                        vlanvoice = hasil.split('voice :')[
+                                                                1].split('\n')[0]
                                     writer.writerow(
                                         {'RESOURCE_ID': vlaninet, 'SERVICE_NAME': noinet, 'TARGET_ID': '',
                                          'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -610,9 +710,11 @@ async def ipnya(event):
                                          'CONFIG_ITEM_NAME': 'S-Vlan'})
                                 except IndexError:
                                     try:
-                                        vlanvoice = hasil.split('voice ')[1].split('\n')[0].strip()
+                                        vlanvoice = hasil.split(
+                                            'voice ')[1].split('\n')[0].strip()
                                         if not vlanvoice.isdigit():
-                                            vlanvoice = hasil.split('voice :')[1].split('\n')[0]
+                                            vlanvoice = hasil.split('voice :')[
+                                                                    1].split('\n')[0]
                                         writer.writerow(
                                             {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
                                              'CONFIG_ITEM_NAME': 'S-Vlan'})
@@ -620,24 +722,28 @@ async def ipnya(event):
                                         pass
                 elif 'inet' not in hasil:
                     try:
-                        vlanvoice = hasil.split('voice ')[1].split('\n')[0].strip()
+                        vlanvoice = hasil.split(
+                            'voice ')[1].split('\n')[0].strip()
                         if not vlanvoice.isdigit():
-                            vlanvoice = hasil.split('voice :')[1].split('\n')[0]
+                            vlanvoice = hasil.split('voice :')[
+                                                    1].split('\n')[0]
                         writer.writerow(
                             {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
                              'CONFIG_ITEM_NAME': 'S-Vlan'})
                     except IndexError:
                         try:
                             print('kentang')
-                            vlanvoice = hasil.split('voip ')[1].split('\n')[0].strip()
+                            vlanvoice = hasil.split(
+                                'voip ')[1].split('\n')[0].strip()
                             if not vlanvoice.isdigit():
-                                vlanvoice = hasil.split('voip :')[1].split('\n')[0]
+                                vlanvoice = hasil.split(
+                                    'voip :')[1].split('\n')[0]
                             writer.writerow(
                                 {'RESOURCE_ID': vlanvoice, 'SERVICE_NAME': novoice, 'TARGET_ID': '',
                                  'CONFIG_ITEM_NAME': 'S-Vlan'})
                         except IndexError:
                             pass
-            except (IndexError,UnboundLocalError):
+            except (IndexError, UnboundLocalError):
                 typing = await client(functions.messages.SetTypingRequest(
                     peer=peername,
                     action=types.SendMessageTypingAction()
@@ -645,6 +751,48 @@ async def ipnya(event):
                 await event.reply(message='cek lagi vlan inet voip', attributes=typing)
                 driver.quit()
                 return
+
+        WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH,  "//td[span[normalize-space()='Administration']]/ancestor::td/preceding-sibling::td[1]//a"))).click()
+        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, "(//h1[@class='x1an p_AFDisclosable p_AFDisclosed'][@style='height: 23px; top: 760px; opacity: 1; visibility: visible;'])")))
+        # WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, 'pt1:pt_r1:0:d5:0:j_id52'))).click()
+        WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "(//a[normalize-space()='Execute Rule'])[1]"))).click()
+        alter = Select(WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                   "/html/body/div[1]/form/div[1]/div[2]/div/div[5]/div/div[1]/div/div/div[3]/div/div/div/div[1]/div/div/div[1]/div/div/div[1]/div/div/span/div[2]/div/div/div/div/div/div/div/span/div/table/tbody/tr/td/table/tbody/tr[2]/td[2]/select"))))
+        alter.select_by_visible_text('ALTER_SERVICE_CONFIG_ITEM')
+        await asyncio.sleep(1)
+        try:
+            typing = await client(functions.messages.SetTypingRequest(
+                peer=peername,
+                action=types.SendMessageTypingAction()
+            ))
+            fl = WebDriverWait(driver, 15).until(
+                EC.presence_of_element_located((By.XPATH, '//input[@type="file"]')))
+            fl.send_keys(r"C:\Users\Asus\Desktop\PKL\simple1.csv")
+            driver.find_element(
+                By.XPATH, "(//button[normalize-space()='Process'])[1]").click()
+            hasilalter = WebDriverWait(driver, 40).until(
+                EC.presence_of_element_located((By.XPATH, "(//span[@class='x1dj'])[1]"))).text
+            await event.reply(message=hasilalter, attributes=typing)
+            print(hasilalter)
+            driver.quit()
+        except TimeoutException:
+            try:
+                typing = await client(functions.messages.SetTypingRequest(
+                    peer=peername,
+                    action=types.SendMessageTypingAction()
+                ))
+                driver.find_element(
+                    By.XPATH, "(//button[normalize-space()='Process'])[1]").click()
+                hasilalter = WebDriverWait(driver, 40).until(
+                    EC.presence_of_element_located((By.XPATH, "(//span[@class='x1dj'])[1]"))).text
+                await event.reply(message=hasilalter, attributes=typing)
+                driver.quit()
+            except TimeoutException:
+                await event.reply(message='gagal upload', attributes=typing)
+                driver.quit()
+
+
+    return
             
 client.start()
 client.run_until_disconnected()
